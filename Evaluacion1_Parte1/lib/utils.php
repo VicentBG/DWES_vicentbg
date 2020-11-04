@@ -1,6 +1,6 @@
 <?php
 
-//Funciones que cargan arrays asociativas con los datos que existen en csv
+// Funciones que cargan arrays asociativas con los datos que existen en csv
 function lista($item) {
     $fichero = "./bbdd/".$item.".csv";
     $datos = array();
@@ -58,6 +58,7 @@ function guardaPelis($pelis) {
     }
 }
 
+// Función para recuperar los directores
 function getDirectores($id) {
     $relaciones = relacion('pelicula_director');
     $dires = array();
@@ -69,6 +70,7 @@ function getDirectores($id) {
     return $dires;
 }
 
+// Función para recuperar los actores
 function getActores($id) {
     $relaciones = relacion('pelicula_actor');
     $actores = array();

@@ -15,12 +15,13 @@
 
 <body>
     <div class="alert alert-secondary d-flex">
-        <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
+        <a href="./peliculas.php" class="btn btn-dark">Películas</a>;
     </div>
     <div class="container">
         <!-- INCLUIR CÓDIGO PHP -->
         <?php
         require "./lib/utils.php";
+        // Se recuperan los diferentes datos y sus relaciones para mostrar según la id de la peli
         $pelis = lista('peliculas');
         $dires = lista('directores');
         $actores = lista('actores');

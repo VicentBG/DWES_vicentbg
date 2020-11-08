@@ -16,6 +16,7 @@
     <!-- INCLUIR CÓDIGO PHP -->
     <?php
     include "./lib/utils.php";
+    // Con los nuevos datos pasados, se modifica la peli
     $datos = array($_GET['id'],$_GET['nombre'],$_GET['ano'],$_GET['dato']);
     editar_pelicula($datos);
     echo "

@@ -21,6 +21,7 @@
         <div class="row mx-auto">
             <!-- INCLUIR CÓDIGO PHP -->
             <?php
+            // Incluimos la librería de funciones y preparamos el array de pelis para mostrar
             include "./lib/utils.php";
             $pelis = lista('peliculas');
             print "<div class='card-group'>";

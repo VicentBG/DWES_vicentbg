@@ -1,6 +1,8 @@
 <?php
 
 // Funciones que cargan arrays asociativas con los datos que existen en csv
+
+// Para pelis, directores y actores
 function lista($item) {
     $fichero = "./bbdd/".$item.".csv";
     $datos = array();
@@ -17,6 +19,7 @@ function lista($item) {
     return $datos;
 }
 
+// Para relaciones entre pelis y directores o actores
 function relacion($item) {
     $fichero = "./bbdd/".$item.".csv";
     $datos = array();

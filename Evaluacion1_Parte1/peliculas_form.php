@@ -20,6 +20,7 @@
     $pelis = lista('peliculas');
     $id = $_GET['peli'];
     $peli = $pelis[$id];
+    // Formulario para modificar datos de las pelis. Se incluyen algunos controles de datos en los inputs
     echo "
           <form action='peliculas_edicion.php?' name='peliculas_edicion'>
             <div class='form-group'>

@@ -15,6 +15,7 @@
     <!-- INCLUIR CÓDIGO PHP -->
     <?php
     include "./lib/utils.php";
+    // Se recupera el dato de id de la peli y se pasa a la función de borrado
     $id = $_GET['peli'];
     borrar_pelicula($id);
     print "<h3>La película ha sido borrada con éxito</h3>";

@@ -1,8 +1,8 @@
 <?php
 /**
- * Clase Actores para instanciar y usar en el CRUD
+ * Clase Actor para instanciar y usar en el CRUD
  */
-class Actores
+class Actor
 {
     // propiedades
     private $id;

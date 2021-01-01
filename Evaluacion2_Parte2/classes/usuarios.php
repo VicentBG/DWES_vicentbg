@@ -1,8 +1,8 @@
 <?php
 /**
- * Clase Usuarios para instanciar y usar en el CRUD
+ * Clase Usuario para instanciar y usar en el CRUD
  */
-class Usuarios
+class Usuario
 {
     // propiedades
     private $id;

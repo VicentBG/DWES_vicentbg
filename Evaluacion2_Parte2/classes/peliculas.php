@@ -1,8 +1,8 @@
 <?php
 /**
- * Clase Peliculas para instanciar y usar en el CRUD
+ * Clase Pelicula para instanciar y usar en el CRUD
  */
-class Peliculas
+class Pelicula
 {
     // propiedades
     private $id;
@@ -38,7 +38,7 @@ class Peliculas
     {
         return $this->anyo;
     }
-    
+
     public function getDuracion()
     {
         return $this->duracion;

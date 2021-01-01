@@ -1,8 +1,8 @@
 <?php
 /**
- * Clase Directores para instanciar y usar en el CRUD
+ * Clase Director para instanciar y usar en el CRUD
  */
-class Directores
+class Director
 {
     // propiedades
     private $id;

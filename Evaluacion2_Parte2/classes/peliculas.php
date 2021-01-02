@@ -43,4 +43,22 @@ class Pelicula
     {
         return $this->duracion;
     }
+
+    /**
+     * Funciones setters
+     */
+    public function setTitulo($titulo)
+    {
+        $this->titulo = $titulo;
+    }
+
+    public function setAnyo($anyo)
+    {
+        $this->anyo = $anyo;
+    }
+
+    public function setDuracion($duracion)
+    {
+        $this->duracion = $duracion;
+    }
 }

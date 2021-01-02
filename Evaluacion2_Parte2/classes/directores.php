@@ -43,4 +43,22 @@ class Director
     {
         return $this->pais;
     }
+
+    /**
+     * Funciones setters
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    }
+
+    public function setAnyoNacimiento($anyoNacimiento)
+    {
+        $this->anyoNacimiento = $anyoNacimiento;
+    }
+
+    public function setPais($pais)
+    {
+        $this->pais = $pais;
+    }
 }

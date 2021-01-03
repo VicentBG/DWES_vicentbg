@@ -71,7 +71,7 @@ class ActoresCrud
         $db = Database::conectar();
         // preparamos la consulta
         $consulta = $db->prepare("UPDATE actores SET nombre=:nombre, anyoNacimiento=:anyoNacimiento, pais=:pais WHERE id=:id");
-        // pasamos el objeto película
+        // pasamos el objeto actor
         $consulta->bindValue(':nombre', $actor->getNombre());
         $consulta->bindValue(':anyoNacimiento', $actor->getAnyoNacimiento());
         $consulta->bindValue(':pais', $actor->getPais());

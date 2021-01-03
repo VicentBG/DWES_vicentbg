@@ -146,7 +146,7 @@ class PeliculasCrud
 // comprobación del código
 $peliculasCrud = new PeliculasCrud();
 
-// test bucar()
+// test obtener()
 // $peli = $peliculasCrud->obtener(6);
 // echo "ID: {$peli->getId()}<br/>";
 // echo "Título: {$peli->getTitulo()}<br/>";

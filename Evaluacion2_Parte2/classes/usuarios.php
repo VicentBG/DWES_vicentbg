@@ -43,4 +43,22 @@ class Usuario
     {
         return $this->guardaCredenciales;
     }
+
+    /**
+     * Funciones setters
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function setGuardaCredenciales($guardaCredenciales)
+    {
+        $this->guardaCredenciales = $guardaCredenciales;
+    }
 }

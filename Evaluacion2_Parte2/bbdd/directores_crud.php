@@ -98,7 +98,7 @@ class DirectoresCrud
 // comprobación del código
 $directoresCrud = new DirectoresCrud();
 
-// test bucar()
+// test obtener()
 // $director = $directoresCrud->obtener(4);
 // echo "ID: {$director->getId()}<br/>";
 // echo "Nombre: {$director->getNombre()}<br/>";

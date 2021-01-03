@@ -98,7 +98,7 @@ class ActoresCrud
 // comprobación del código
 $actoresCrud = new ActoresCrud();
 
-// test bucar()
+// test obtener()
 // $actor = $actoresCrud->obtener(13);
 // echo "ID: {$actor->getId()}<br/>";
 // echo "Nombre: {$actor->getNombre()}<br/>";

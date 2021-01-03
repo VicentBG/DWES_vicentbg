@@ -2,6 +2,8 @@
 // incluimos las clases requeridas
 require_once '../lib/database.php';
 require_once '../classes/peliculas.php';
+require_once '../classes/actores.php';
+require_once '../classes/directores.php';
 
 /**
  * Clase PeliculasCrud para operaciones en la tabla
@@ -28,19 +30,19 @@ class PeliculasCrud
     }
 
     /**
-     * Método para buscar una película
+     * Método para obtener una película
      */
-    public function buscar($id)
+    public function obtener($id)
     {
         $db = Database::conectar();
         // realizamos la búsqueda en la tabla
-        $busca = $db->prepare("SELECT * FROM peliculas WHERE id=:id");
+        $consulta = $db->prepare("SELECT * FROM peliculas WHERE id=:id");
         // pasamos el id
-        $busca->bindValue(':id', $id);
+        $consulta->bindValue(':id', $id);
         // ejecutamos la consulta de búsqueda
-        $busca->execute();
+        $consulta->execute();
 
-        $dato = $busca->fetch();
+        $dato = $consulta->fetch();
         $peli = new Pelicula($dato['id'], $dato['titulo'], $dato['anyo'], $dato['duracion']);
 
         return $peli;
@@ -53,14 +55,14 @@ class PeliculasCrud
     {
         $db = Database::conectar();
         // preparamos la consulta
-        $insertar = $db->prepare("INSERT INTO peliculas VALUES (:id, :titulo, :anyo, :duracion)");
+        $consulta = $db->prepare("INSERT INTO peliculas VALUES (:id, :titulo, :anyo, :duracion)");
         // pasamos el objeto película
-        $insertar->bindValue(':id', $peli->getId());
-        $insertar->bindValue(':titulo', $peli->getTitulo());
-        $insertar->bindValue(':anyo', $peli->getAnyo());
-        $insertar->bindValue(':duracion', $peli->getDuracion());
+        $consulta->bindValue(':id', $peli->getId());
+        $consulta->bindValue(':titulo', $peli->getTitulo());
+        $consulta->bindValue(':anyo', $peli->getAnyo());
+        $consulta->bindValue(':duracion', $peli->getDuracion());
         // ejecutamos la consulta de inserción
-        $insertar->execute();
+        $consulta->execute();
     }
 
     /**
@@ -70,28 +72,74 @@ class PeliculasCrud
     {
         $db = Database::conectar();
         // preparamos la consulta
-        $actualizar = $db->prepare("UPDATE peliculas SET titulo=:titulo, anyo=:anyo, duracion=:duracion WHERE id=:id");
+        $consulta = $db->prepare("UPDATE peliculas SET titulo=:titulo, anyo=:anyo, duracion=:duracion WHERE id=:id");
         // pasamos el objeto película
-        $actualizar->bindValue(':titulo', $peli->getTitulo());
-        $actualizar->bindValue(':anyo', $peli->getAnyo());
-        $actualizar->bindValue(':duracion', $peli->getDuracion());
-        $actualizar->bindValue(':id', $peli->getId());
+        $consulta->bindValue(':titulo', $peli->getTitulo());
+        $consulta->bindValue(':anyo', $peli->getAnyo());
+        $consulta->bindValue(':duracion', $peli->getDuracion());
+        $consulta->bindValue(':id', $peli->getId());
         // ejecutamos la actualización de datos
-        $actualizar->execute();
+        $consulta->execute();
     }
 
     /**
-     * Método para borrar una película
+     * Método para eliminar una película
      */
-    public function borrar($id)
+    public function eliminar($id)
     {
         $db = Database::conectar();
         // preparamos la consulta
-        $borrar = $db->prepare("DELETE FROM peliculas WHERE id=:id");
+        $consulta = $db->prepare("DELETE FROM peliculas WHERE id=:id");
         // pasamos el id
-        $borrar->bindValue(':id', $id);
+        $consulta->bindValue(':id', $id);
         // ejecutamos la consulta de borrado
-        $borrar->execute();
+        $consulta->execute();
+    }
+
+    /**
+     * Método para obtener los actores de una peli
+     */
+    public function obtenerActoresPelicula($id)
+    {
+        $db = Database::conectar();
+        // inicializamos lista para guardar todas los actores
+        $listaActores = [];
+        // preparamos la consulta a la tabla
+        $consulta = $db->prepare("SELECT * FROM actores a INNER JOIN peliculas_actores p ON a.id=p.id_actor WHERE p.id_pelicula=:id");
+        // pasamos el id
+        $consulta->bindValue(':id', $id);
+        // ejecutamos la consulta de borrado
+        $consulta->execute();
+
+        foreach ($consulta->fetchAll() as $dato) {
+            $actor = new Actor($dato['id'], $dato['nombre'], $dato['anyoNacimiento'], $dato['pais']);
+            $listaActores[] = $actor;
+        }
+
+        return $listaActores;
+    }
+
+    /**
+     * Método para obtener los directores de una peli
+     */
+    public function obtenerDirectoresPelicula($id)
+    {
+        $db = Database::conectar();
+        // inicializamos lista para guardar todas los actores
+        $listaDirectores = [];
+        // preparamos la consulta a la tabla
+        $consulta = $db->prepare("SELECT * FROM directores d INNER JOIN peliculas_directores p ON d.id=p.id_director WHERE p.id_pelicula=:id");
+        // pasamos el id
+        $consulta->bindValue(':id', $id);
+        // ejecutamos la consulta de borrado
+        $consulta->execute();
+
+        foreach ($consulta->fetchAll() as $dato) {
+            $director = new Director($dato['id'], $dato['nombre'], $dato['anyoNacimiento'], $dato['pais']);
+            $listaDirectores[] = $director;
+        }
+
+        return $listaDirectores;
     }
 }
 
@@ -99,31 +147,50 @@ class PeliculasCrud
 $peliculasCrud = new PeliculasCrud();
 
 // test bucar()
-$peli = $peliculasCrud->buscar(6);
-echo "ID: {$peli->getId()}<br/>";
-echo "Título: {$peli->getTitulo()}<br/>";
-echo "Año: {$peli->getAnyo()}<br/>";
-echo "Duración: {$peli->getDuracion()}<br/>";
-echo "<br/>";
+// $peli = $peliculasCrud->obtener(6);
+// echo "ID: {$peli->getId()}<br/>";
+// echo "Título: {$peli->getTitulo()}<br/>";
+// echo "Año: {$peli->getAnyo()}<br/>";
+// echo "Duración: {$peli->getDuracion()}<br/>";
+// echo "<br/>";
 
 // test insertar()
-//$newPeli = new Pelicula(null, "Fiebre del sábado noche", "1977", "119");
+//$newPeli = new Pelicula(null, "Fiebre del sábado noche", 1977, 119);
 //$peliculasCrud->insertar($newPeli);
 
 // test actualizar()
-// $peli = $peliculasCrud->buscar(5);
+// $peli = $peliculasCrud->obtener(5);
 // $peli->setTitulo('Fiebrita del covid noche');
 // $peliculasCrud->actualizar($peli);
 
-// test borrar()
-$peliculasCrud->borrar(6);
+// test eliminar()
+//$peliculasCrud->eliminar(7);
 
 // test mostrar()
-$pelis = $peliculasCrud->mostrar();
-foreach ($pelis as $peli) {
-    echo "ID: {$peli->getId()}<br/>";
-    echo "Título: {$peli->getTitulo()}<br/>";
-    echo "Año: {$peli->getAnyo()}<br/>";
-    echo "Duración: {$peli->getDuracion()}<br/>";
+// $pelis = $peliculasCrud->mostrar();
+// foreach ($pelis as $peli) {
+//     echo "ID: {$peli->getId()}<br/>";
+//     echo "Título: {$peli->getTitulo()}<br/>";
+//     echo "Año: {$peli->getAnyo()}<br/>";
+//     echo "Duración: {$peli->getDuracion()}<br/>";
+//     echo "<br/>";
+// }
+
+// test obtenerActoresPelicula()
+// $actores = $peliculasCrud->obtenerActoresPelicula(1);
+// foreach ($actores as $actor) {
+//     echo "ID: {$actor->getId()}<br/>";
+//     echo "Nombre: {$actor->getNombre()}<br/>";
+//     echo "Año nacimiento: {$actor->getAnyoNacimiento()}<br/>";
+//     echo "País: {$actor->getPais()}<br/>";
+//     echo "<br/>";
+
+    // test obtenerDirectoresPelicula()
+$directores = $peliculasCrud->obtenerDirectoresPelicula(4);
+foreach ($directores as $director) {
+    echo "ID: {$director->getId()}<br/>";
+    echo "Nombre: {$director->getNombre()}<br/>";
+    echo "Año nacimiento: {$director->getAnyoNacimiento()}<br/>";
+    echo "País: {$director->getPais()}<br/>";
     echo "<br/>";
 }

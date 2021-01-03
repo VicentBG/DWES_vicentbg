@@ -155,8 +155,8 @@ $peliculasCrud = new PeliculasCrud();
 // echo "<br/>";
 
 // test insertar()
-//$newPeli = new Pelicula(null, "Fiebre del sábado noche", 1977, 119);
-//$peliculasCrud->insertar($newPeli);
+// $newPeli = new Pelicula(null, "Fiebre del sábado noche", 1977, 119);
+// $peliculasCrud->insertar($newPeli);
 
 // test actualizar()
 // $peli = $peliculasCrud->obtener(5);
@@ -186,11 +186,11 @@ $peliculasCrud = new PeliculasCrud();
 //     echo "<br/>";
 
     // test obtenerDirectoresPelicula()
-$directores = $peliculasCrud->obtenerDirectoresPelicula(4);
-foreach ($directores as $director) {
-    echo "ID: {$director->getId()}<br/>";
-    echo "Nombre: {$director->getNombre()}<br/>";
-    echo "Año nacimiento: {$director->getAnyoNacimiento()}<br/>";
-    echo "País: {$director->getPais()}<br/>";
-    echo "<br/>";
-}
+// $directores = $peliculasCrud->obtenerDirectoresPelicula(4);
+// foreach ($directores as $director) {
+//     echo "ID: {$director->getId()}<br/>";
+//     echo "Nombre: {$director->getNombre()}<br/>";
+//     echo "Año nacimiento: {$director->getAnyoNacimiento()}<br/>";
+//     echo "País: {$director->getPais()}<br/>";
+//     echo "<br/>";
+// }

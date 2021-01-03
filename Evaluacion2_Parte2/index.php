@@ -22,6 +22,7 @@ $user = isset($_COOKIE['user']) ? $_COOKIE['user'] : "";
                 <img class="col" src="./imgs/portada.png"/>
                 <div class="col">
                 <?php
+                // incluimos el CRUD de usuarios y lo instanciamos
                 include "./bbdd/usuarios_crud.php";
                 $usuariosCrud = new UsuariosCrud();
                 // Formulario para comprobar datos del usuario. Se incluyen algunos controles de datos en los inputs.
@@ -57,6 +58,8 @@ $user = isset($_COOKIE['user']) ? $_COOKIE['user'] : "";
                         // iniciamos la sesión y le asignamos el email del usuario
                         session_start();
                         $_SESSION['user'] = $usuario->getEmail();
+                        // redireccionamos a la página de películas
+                        header('Location: peliculas.php');
                     } else {
                         echo "<div class='text-danger'>USUARIO NO EXISTE O CONTRASEÑA INCORRECTA</div>";
                     }

@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (empty($_SESSION['user'])) {
+    header('Location: index.php');
+}
+?>
 <!DOCTYPE html>
 
 <head>
@@ -16,7 +22,31 @@
         <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
     </div>
     <div class="container">
-        <!-- ESCRIBE AQUÍ TU CÓDIGO -->
+    <?php
+    // Incluimos el CRUD de películas y la instanciamos
+    include "./bbdd/peliculas_crud.php";
+    $peliculassCrud = new PeliculasCrud();
+    // llamamos al método mostrar para obtener la lista de pelis
+    $pelis = $peliculassCrud->mostrar();
+    print "<div class='card-group'>";
+    foreach ($pelis as $peli) {
+        $id = $peli->getId();
+        $titulo = $peli->getTitulo();
+        echo "
+        <div class='card'>
+            <a href='./peliculas_ficha.php?peli=$id' class='custom-card'>
+                <img class='card-img-top' src='./imgs/peliculas/$id.jpg' alt='Card image cap'>
+            </a>
+            <div class='card-body'>
+            <h5 class='card-title'>$titulo</h5>
+            <a href='./peliculas_form.php?peli=$id' class='btn btn-primary custom-card'>Editar</a>
+            <a href='./peliculas_borrado.php?peli=$id' class='btn btn-danger custom-card'>Borrar</a>
+            </div>
+        </div>
+        ";
+    }
+    print "</div>";
+    ?>
     </div>
 </body>
 

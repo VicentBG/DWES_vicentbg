@@ -1,7 +1,7 @@
 <?php
 // incluimos las clases requeridas
-require_once '../lib/database.php';
-require_once '../classes/usuarios.php';
+require_once './lib/database.php';
+require_once './classes/usuarios.php';
 
 /**
  * Clase UsuariosCrud para operaciones en la tabla
@@ -30,19 +30,23 @@ class UsuariosCrud
     /**
      * Método para obtener un usuario
      */
-    public function obtener($id)
+    public function obtener($email)
     {
         $db = Database::conectar();
         // realizamos la búsqueda en la tabla
-        $consulta = $db->prepare("SELECT * FROM usuarios WHERE id=:id");
+        $consulta = $db->prepare("SELECT * FROM usuarios WHERE email=:email");
         // pasamos el id
-        $consulta->bindValue(':id', $id);
+        $consulta->bindValue(':email', $email);
         // ejecutamos la consulta de búsqueda
         $consulta->execute();
 
         $dato = $consulta->fetch();
-        $usuario = new Usuario($dato['id'], $dato['email'], $dato['password'], $dato['guardaCredenciales']);
-
+        if ($dato) {
+            $usuario = new Usuario($dato['id'], $dato['email'], $dato['password'], $dato['guardaCredenciales']);
+        } else {
+            $usuario = null;
+        }
+        
         return $usuario;
     }
 
@@ -96,10 +100,10 @@ class UsuariosCrud
 }
 
 // comprobación del código
-$usuariosCrud = new UsuariosCrud();
+// $usuariosCrud = new UsuariosCrud();
 
 // test obtener()
-// $usuario = $usuariosCrud->obtener(2);
+// $usuario = $usuariosCrud->obtener('pm');
 // echo "ID: {$usuario->getId()}<br/>";
 // echo "Email: {$usuario->getEmail()}<br/>";
 // echo "Password: {$usuario->getPassword()}<br/>";
@@ -116,14 +120,14 @@ $usuariosCrud = new UsuariosCrud();
 // $usuariosCrud->actualizar($usuario);
 
 // test eliminar()
-$usuariosCrud->eliminar(2);
+// $usuariosCrud->eliminar(2);
 
 // test mostrar()
-$usuarios = $usuariosCrud->mostrar();
-foreach ($usuarios as $usuario) {
-    echo "ID: {$usuario->getId()}<br/>";
-    echo "Email: {$usuario->getEmail()}<br/>";
-    echo "Password: {$usuario->getPassword()}<br/>";
-    echo "Guarda credenciales?: {$usuario->getGuardaCredenciales()}<br/>";
-    echo "<br/>";
-}
+// $usuarios = $usuariosCrud->mostrar();
+// foreach ($usuarios as $usuario) {
+//     echo "ID: {$usuario->getId()}<br/>";
+//     echo "Email: {$usuario->getEmail()}<br/>";
+//     echo "Password: {$usuario->getPassword()}<br/>";
+//     echo "Guarda credenciales?: {$usuario->getGuardaCredenciales()}<br/>";
+//     echo "<br/>";
+// }

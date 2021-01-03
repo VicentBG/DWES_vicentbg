@@ -1,7 +1,7 @@
 <?php
 // incluimos las clases requeridas
-require_once '../lib/database.php';
-require_once '../classes/actores.php';
+require_once './lib/database.php';
+require_once './classes/actores.php';
 
 /**
  * Clase ActoresCrud para operaciones en la tabla
@@ -41,7 +41,11 @@ class ActoresCrud
         $consulta->execute();
 
         $dato = $consulta->fetch();
-        $actor = new Actor($dato['id'], $dato['nombre'], $dato['anyoNacimiento'], $dato['pais']);
+        if ($dato) {
+            $actor = new Actor($dato['id'], $dato['nombre'], $dato['anyoNacimiento'], $dato['pais']);
+        } else {
+            $actor = null;
+        }
 
         return $actor;
     }
@@ -96,7 +100,7 @@ class ActoresCrud
 }
 
 // comprobación del código
-$actoresCrud = new ActoresCrud();
+// $actoresCrud = new ActoresCrud();
 
 // test obtener()
 // $actor = $actoresCrud->obtener(13);
@@ -116,7 +120,7 @@ $actoresCrud = new ActoresCrud();
 // $actoresCrud->actualizar($actor);
 
 // test eliminar()
-//$actoresCrud->eliminar(13);
+// $actoresCrud->eliminar(13);
 
 // test mostrar()
 // $actores = $actoresCrud->mostrar();

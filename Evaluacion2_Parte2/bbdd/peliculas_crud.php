@@ -1,9 +1,9 @@
 <?php
 // incluimos las clases requeridas
-require_once '../lib/database.php';
-require_once '../classes/peliculas.php';
-require_once '../classes/actores.php';
-require_once '../classes/directores.php';
+require_once './lib/database.php';
+require_once './classes/peliculas.php';
+require_once './classes/actores.php';
+require_once './classes/directores.php';
 
 /**
  * Clase PeliculasCrud para operaciones en la tabla
@@ -43,7 +43,11 @@ class PeliculasCrud
         $consulta->execute();
 
         $dato = $consulta->fetch();
-        $peli = new Pelicula($dato['id'], $dato['titulo'], $dato['anyo'], $dato['duracion']);
+        if ($dato) {
+            $peli = new Pelicula($dato['id'], $dato['titulo'], $dato['anyo'], $dato['duracion']);
+        } else {
+            $peli = null;
+        }
 
         return $peli;
     }
@@ -144,7 +148,7 @@ class PeliculasCrud
 }
 
 // comprobación del código
-$peliculasCrud = new PeliculasCrud();
+// $peliculasCrud = new PeliculasCrud();
 
 // test obtener()
 // $peli = $peliculasCrud->obtener(6);
@@ -164,7 +168,7 @@ $peliculasCrud = new PeliculasCrud();
 // $peliculasCrud->actualizar($peli);
 
 // test eliminar()
-//$peliculasCrud->eliminar(7);
+// $peliculasCrud->eliminar(7);
 
 // test mostrar()
 // $pelis = $peliculasCrud->mostrar();

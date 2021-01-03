@@ -1,7 +1,7 @@
 <?php
 // incluimos las clases requeridas
-require_once '../lib/database.php';
-require_once '../classes/directores.php';
+require_once './lib/database.php';
+require_once './classes/directores.php';
 
 /**
  * Clase DirectoresCrud para operaciones en la tabla
@@ -41,7 +41,11 @@ class DirectoresCrud
         $consulta->execute();
 
         $dato = $consulta->fetch();
-        $director = new Director($dato['id'], $dato['nombre'], $dato['anyoNacimiento'], $dato['pais']);
+        if ($dato) {
+            $director = new Director($dato['id'], $dato['nombre'], $dato['anyoNacimiento'], $dato['pais']);
+        } else {
+            $director = null;
+        }
 
         return $director;
     }
@@ -96,7 +100,7 @@ class DirectoresCrud
 }
 
 // comprobación del código
-$directoresCrud = new DirectoresCrud();
+// $directoresCrud = new DirectoresCrud();
 
 // test obtener()
 // $director = $directoresCrud->obtener(4);
@@ -116,7 +120,7 @@ $directoresCrud = new DirectoresCrud();
 // $directoresCrud->actualizar($director);
 
 // test eliminar()
-//$directoresCrud->eliminar(4);
+// $directoresCrud->eliminar(4);
 
 // test mostrar()
 // $directores = $directoresCrud->mostrar();

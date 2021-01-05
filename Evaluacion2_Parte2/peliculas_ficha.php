@@ -1,3 +1,10 @@
+<?php
+// comprobamos que exista la sesión o lo enviamos de vuelta al index
+session_start();
+if (empty($_SESSION['user'])) {
+    header('Location: index.php');
+}
+?>
 <!DOCTYPE html>
 
 <head>
@@ -16,7 +23,53 @@
         <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
     </div>
     <div class="container">
-        <!-- ESCRIBE AQUÍ TU CÓDIGO -->
+    <?php
+    // Incluimos el CRUD de películas y la instanciamos
+    require "./bbdd/peliculas_crud.php";
+    $peliculasCrud = new PeliculasCrud();
+    // Se recuperan los diferentes datos para mostrar según la id de la peli
+    $id = $_GET['peli'];
+    $peli = $peliculasCrud->obtener($id);
+    $dires = $peliculasCrud->obtenerDirectoresPelicula($id);
+    $actores = $peliculasCrud->obtenerActoresPelicula($id);
+    echo "
+        <ul class='list-group'>
+            <li class='list-group-item'>
+            <strong>Título: </strong>{$peli->getTitulo()}
+            </li>
+            <li class='list-group-item'>
+            <strong>Año: </strong>{$peli->getAnyo()}
+            </li>
+            <li class='list-group-item'>
+            <strong>Duración: </strong>{$peli->getDuracion()}
+            </li>
+            <li class='list-group-item'>
+            <strong>Director/es: </strong>
+            <ul class='list-group'>
+    ";
+    foreach ($dires as $dir) {
+        echo "<li class='list-group-item'>
+        <a href='./directores_ficha.php?director={$dir->getId()}'>{$dir->getNombre()}</a>
+        </li>";
+    }
+    echo "
+            </ul>
+            </li>
+            <li class='list-group-item'>
+            <strong>Actor/es: </strong>
+            <ul class='list-group'>
+    ";
+    foreach ($actores as $act) {
+        echo "<li class='list-group-item'>
+        <a href='./actores_ficha.php?actor={$act->getId()}'>{$act->getNombre()}</a>
+        </li>";
+    }
+    echo "
+            </ul>
+            </li>
+        </ul>
+    ";
+    ?>
     </div>
 </body>
 

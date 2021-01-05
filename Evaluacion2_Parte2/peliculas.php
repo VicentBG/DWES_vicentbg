@@ -1,4 +1,5 @@
 <?php
+// comprobamos que exista la sesión o lo enviamos de vuelta al index
 session_start();
 if (empty($_SESSION['user'])) {
     header('Location: index.php');
@@ -8,7 +9,7 @@ if (empty($_SESSION['user'])) {
 
 <head>
     <meta charset="utf-8">
-    <title>Películas</title>
+    <title>Película</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
@@ -24,10 +25,10 @@ if (empty($_SESSION['user'])) {
     <div class="container">
     <?php
     // Incluimos el CRUD de películas y la instanciamos
-    include "./bbdd/peliculas_crud.php";
-    $peliculassCrud = new PeliculasCrud();
+    require "./bbdd/peliculas_crud.php";
+    $peliculasCrud = new PeliculasCrud();
     // llamamos al método mostrar para obtener la lista de pelis
-    $pelis = $peliculassCrud->mostrar();
+    $pelis = $peliculasCrud->mostrar();
     print "<div class='card-group'>";
     foreach ($pelis as $peli) {
         $id = $peli->getId();

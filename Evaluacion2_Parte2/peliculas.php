@@ -41,7 +41,7 @@ if (empty($_SESSION['user'])) {
             <div class='card-body'>
             <h5 class='card-title'>$titulo</h5>
             <a href='./peliculas_form.php?peli=$id' class='btn btn-primary custom-card'>Editar</a>
-            <a href='./peliculas_borrado.php?peli=$id' class='btn btn-danger custom-card'>Borrar</a>
+            <a href='' class='btn btn-danger custom-card'>Borrar</a>
             </div>
         </div>
         ";

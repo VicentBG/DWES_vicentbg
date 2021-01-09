@@ -35,17 +35,17 @@ if (empty($_SESSION['user'])) {
     echo "
         <ul class='list-group'>
             <li class='list-group-item'>
-            <strong>Título: </strong>{$peli->getTitulo()}
+                <strong>Título: </strong>{$peli->getTitulo()}
             </li>
             <li class='list-group-item'>
-            <strong>Año: </strong>{$peli->getAnyo()}
+                <strong>Año: </strong>{$peli->getAnyo()}
             </li>
             <li class='list-group-item'>
-            <strong>Duración: </strong>{$peli->getDuracion()}
+                <strong>Duración: </strong>{$peli->getDuracion()}
             </li>
             <li class='list-group-item'>
-            <strong>Director/es: </strong>
-            <ul class='list-group'>
+                <strong>Director/es: </strong>
+        <ul class='list-group'>
     ";
     foreach ($dires as $dir) {
         echo "<li class='list-group-item'>

@@ -23,7 +23,7 @@ $user = isset($_COOKIE['user']) ? $_COOKIE['user'] : "";
                 <div class="col">
                 <?php
                 // incluimos el CRUD de usuarios y lo instanciamos
-                include "./bbdd/usuarios_crud.php";
+                require "./bbdd/usuarios_crud.php";
                 $usuariosCrud = new UsuariosCrud();
                 // Formulario para comprobar datos del usuario. Se incluyen algunos controles de datos en los inputs.
                 // Si existe la cookie, metemos su valor en el formulario.

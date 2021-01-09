@@ -41,12 +41,21 @@ if (empty($_SESSION['user'])) {
             <div class='card-body'>
             <h5 class='card-title'>$titulo</h5>
             <a href='./peliculas_form.php?peli=$id' class='btn btn-primary custom-card'>Editar</a>
-            <a href='' class='btn btn-danger custom-card'>Borrar</a>
+            <a href='peliculas.php?peli=$id' class='btn btn-danger custom-card'>Borrar</a>
             </div>
         </div>
         ";
     }
     print "</div>";
+    if (isset($_GET['peli'])) {
+        if ($peliculasCrud->eliminar($_GET['peli'])) {
+            echo "<br/><div>** La película ha sido borrada correctamente **</div>";
+            $_GET['peli'] = null;
+        } else {
+            echo "<br/><div>** Error, ha habido un problema al borrar la película. Inténtelo de nuevo más tarde **</div>";
+            $_GET['peli'] = null;
+        }
+    }
     ?>
     </div>
 </body>

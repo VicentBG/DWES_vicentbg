@@ -56,6 +56,7 @@ $user = isset($_COOKIE['user']) ? $_COOKIE['user'] : "";
                             setcookie('user', $usuario->getEmail(), time() + (3600 + 24));
                         }
                         // iniciamos la sesión y le asignamos el email del usuario
+                        session_name("login");
                         session_start();
                         $_SESSION['user'] = $usuario->getEmail();
                         // guardamos fechas y hora de acceso

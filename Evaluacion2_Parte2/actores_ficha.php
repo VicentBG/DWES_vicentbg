@@ -1,5 +1,6 @@
 <?php
 // comprobamos que exista la sesión o lo enviamos de vuelta al index
+session_name("login");
 session_start();
 if (empty($_SESSION['user'])) {
     header('Location: index.php');
@@ -33,11 +34,17 @@ if (empty($_SESSION['user'])) {
 </head>
 
 <body>
-    <div class="alert alert-secondary d-flex">
-        <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
+    <div class="alert alert-secondary d-flex justify-content-between">
+        <a href="./peliculas.php" class="btn btn-dark">Películas</a>
+        <a href="./peliculas.php?logout=si" class="btn btn-dark">Logout</a>
     </div>
     <div class="container">
     <?php
+    // si pulsamos logout destruimos sesión y mandamos a index
+    if (isset($_GET['logout'])) {
+        session_destroy();
+        header('Location: index.php');
+    }
     // Incluimos el CRUD de actores y lo instanciamos
     require "./bbdd/actores_crud.php";
     $actoresCrud = new ActoresCrud();

@@ -81,7 +81,11 @@ class ActoresCrud
         $consulta->bindValue(':pais', $actor->getPais());
         $consulta->bindValue(':id', $actor->getId());
         // ejecutamos la actualización de datos
-        $consulta->execute();
+        if ($consulta->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

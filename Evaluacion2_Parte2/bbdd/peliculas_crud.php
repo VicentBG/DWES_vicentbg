@@ -83,7 +83,11 @@ class PeliculasCrud
         $consulta->bindValue(':duracion', $peli->getDuracion());
         $consulta->bindValue(':id', $peli->getId());
         // ejecutamos la actualización de datos
-        $consulta->execute();
+        if ($consulta->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

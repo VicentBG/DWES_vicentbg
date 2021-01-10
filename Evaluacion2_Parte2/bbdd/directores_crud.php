@@ -81,7 +81,11 @@ class DirectoresCrud
         $consulta->bindValue(':pais', $director->getPais());
         $consulta->bindValue(':id', $director->getId());
         // ejecutamos la actualización de datos
-        $consulta->execute();
+        if ($consulta->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

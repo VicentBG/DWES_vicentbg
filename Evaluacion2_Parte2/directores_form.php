@@ -3,6 +3,20 @@
 session_start();
 if (empty($_SESSION['user'])) {
     header('Location: index.php');
+} else {
+    // calculamos el tiempo transcurrido
+    $antes = $_SESSION['ultimoAcceso'];
+    $ahora = date('Y-n-j H:i:s');
+    $tiempo_pasado = (strtotime($ahora)-strtotime($antes));
+    // comprobamos cuánto tiempo ha pasado
+    if ($tiempo_pasado >= 300) {
+        // si pasaron más de 5 minutos destruimos sesión y al index de vuelta
+        session_destroy();
+        header('Location: index.php');
+    } else {
+        //sino, actualizo la fecha de la sesión
+        $_SESSION['ultimoAcceso'] = $ahora;
+    }
 }
 ?>
 <!DOCTYPE html>

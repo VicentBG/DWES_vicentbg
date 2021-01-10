@@ -58,6 +58,8 @@ $user = isset($_COOKIE['user']) ? $_COOKIE['user'] : "";
                         // iniciamos la sesión y le asignamos el email del usuario
                         session_start();
                         $_SESSION['user'] = $usuario->getEmail();
+                        // guardamos fechas y hora de acceso
+                        $_SESSION["ultimoAcceso"]= date("Y-n-j H:i:s");
                         // redireccionamos a la página de películas
                         header('Location: peliculas.php');
                     } else {

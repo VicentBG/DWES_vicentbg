@@ -95,7 +95,11 @@ class DirectoresCrud
         // pasamos el id
         $consulta->bindValue(':id', $id);
         // ejecutamos la consulta de borrado
-        $consulta->execute();
+        if ($consulta->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

@@ -28,29 +28,47 @@ if (empty($_SESSION['user'])) {
     require "./bbdd/actores_crud.php";
     $actoresCrud = new ActoresCrud();
     // Se recuperan los diferentes datos para mostrar según la id del actor
-    $id = $_GET['actor'];
-    $actor = $actoresCrud->obtener($id);
-    echo "
-        <div class='card'>
-            <div class='card-body'>
-            <h5 class='card-title'>
-                <ul class='list-group'>
-                    <li class='list-group-item'>
-                        <strong>Nombre: </strong>{$actor->getNombre()}
-                    </li>
-                    <li class='list-group-item'>
-                        <strong>Año: </strong>{$actor->getAnyoNacimiento()}
-                    </li>
-                    <li class='list-group-item'>
-                        <strong>País: </strong>{$actor->getPais()}
-                    </li>
-                </ul>
-            </h5>
-            <a href='./directores_form.php?actor=$id' class='btn btn-primary custom-card'>Editar</a>
-            <a href='' class='btn btn-danger custom-card'>Borrar</a>
+    if (isset($_GET['actor']) && !isset($_GET['borrar'])) {
+        $id = $_GET['actor'];
+        $actor = $actoresCrud->obtener($id);
+        echo "
+            <div class='card'>
+                <div class='card-body'>
+                <h5 class='card-title'>
+                    <ul class='list-group'>
+                        <li class='list-group-item'>
+                            <strong>Nombre: </strong>{$actor->getNombre()}
+                        </li>
+                        <li class='list-group-item'>
+                            <strong>Año: </strong>{$actor->getAnyoNacimiento()}
+                        </li>
+                        <li class='list-group-item'>
+                            <strong>País: </strong>{$actor->getPais()}
+                        </li>
+                    </ul>
+                </h5>
+                <a href='./actores_form.php?actor=$id' class='btn btn-primary custom-card'>Editar</a>
+                <a href='actores_ficha.php?actor=$id&borrar=si' class='btn btn-danger custom-card'>Borrar</a>
+                </div>
             </div>
-        </div>
-    ";
+        ";
+    } else {
+        if ($actoresCrud->eliminar($_GET['actor'])) {
+            echo "<br/>
+            <div class='alert alert-success' role='alert'>
+                El actor ha sido borrado correctamente.
+            </div>
+            ";
+            $_GET['borrar'] = null;
+        } else {
+            echo "<br/>
+            <div class='alert alert-warning' role='alert'>
+                Error, ha habido un problema al borrar el actor. Inténtelo de nuevo más tarde.
+            </div>
+            ";
+            $_GET['borrar'] = null;
+        }
+    }
     ?>
     </div>
 </body>

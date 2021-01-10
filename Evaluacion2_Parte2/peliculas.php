@@ -49,11 +49,21 @@ if (empty($_SESSION['user'])) {
     print "</div>";
     if (isset($_GET['peli'])) {
         if ($peliculasCrud->eliminar($_GET['peli'])) {
-            echo "<br/><div>** La película ha sido borrada correctamente **</div>";
+            echo "<br/>
+            <div class='alert alert-success' role='alert'>
+                La película ha sido borrada correctamente.
+            </div>
+            ";
             $_GET['peli'] = null;
+            header('Refresh: 3; url=peliculas.php');
         } else {
-            echo "<br/><div>** Error, ha habido un problema al borrar la película. Inténtelo de nuevo más tarde **</div>";
+            echo "<br/>
+            <div class='alert alert-warning' role='alert'>
+                Error, ha habido un problema al borrar la película. Inténtelo de nuevo más tarde.
+            </div>
+            ";
             $_GET['peli'] = null;
+            header('Refresh: 3; url=peliculas.php');
         }
     }
     ?>

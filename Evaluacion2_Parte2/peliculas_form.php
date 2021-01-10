@@ -41,15 +41,13 @@ if (empty($_SESSION['user'])) {
             </div>
             ";
             $_GET['actualizar'] = null;
-            //header('Refresh: 3; url=peliculas.php');
         } else {
             echo "<br/>
             <div class='alert alert-warning' role='alert'>
                 Error, ha habido un problema al actualizar la película. Inténtelo de nuevo más tarde.
             </div>
             ";
-            $_GET['peli'] = null;
-            //header('Refresh: 3; url=peliculas.php');
+            $_GET['actualizar'] = null;
         }
     }
     // Formulario para modificar datos de las pelis. Se incluyen algunos controles de datos en los inputs

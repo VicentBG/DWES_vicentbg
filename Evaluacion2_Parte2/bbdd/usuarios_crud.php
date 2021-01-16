@@ -23,7 +23,7 @@ class UsuariosCrud
             $usuario = new Usuario($dato['id'], $dato['email'], $dato['password'], $dato['guardaCredenciales']);
             $listaUsuarios[] = $usuario;
         }
-
+        $db = Database::desconectar();
         return $listaUsuarios;
     }
 
@@ -46,7 +46,7 @@ class UsuariosCrud
         } else {
             $usuario = null;
         }
-        
+        $db = Database::desconectar();
         return $usuario;
     }
 
@@ -65,6 +65,7 @@ class UsuariosCrud
         $consulta->bindValue(':guardaCredenciales', $usuario->getGuardaCredenciales());
         // ejecutamos la consulta de inserción
         $consulta->execute();
+        $db = Database::desconectar();
     }
 
     /**
@@ -82,6 +83,7 @@ class UsuariosCrud
         $consulta->bindValue(':id', $usuario->getId());
         // ejecutamos la actualización de datos
         $consulta->execute();
+        $db = Database::desconectar();
     }
 
     /**
@@ -96,6 +98,7 @@ class UsuariosCrud
         $consulta->bindValue(':id', $id);
         // ejecutamos la consulta de borrado
         $consulta->execute();
+        $db = Database::desconectar();
     }
 }
 

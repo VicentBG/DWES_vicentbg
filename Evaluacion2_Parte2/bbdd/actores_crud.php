@@ -23,7 +23,7 @@ class ActoresCrud
             $actor = new Actor($dato['id'], $dato['nombre'], $dato['anyoNacimiento'], $dato['pais']);
             $listaActores[] = $actor;
         }
-
+        $db = Database::desconectar();
         return $listaActores;
     }
 
@@ -46,7 +46,7 @@ class ActoresCrud
         } else {
             $actor = null;
         }
-
+        $db = Database::desconectar();
         return $actor;
     }
 
@@ -65,6 +65,7 @@ class ActoresCrud
         $consulta->bindValue(':pais', $actor->getPais());
         // ejecutamos la consulta de inserción
         $consulta->execute();
+        $db = Database::desconectar();
     }
 
     /**
@@ -82,8 +83,10 @@ class ActoresCrud
         $consulta->bindValue(':id', $actor->getId());
         // ejecutamos la actualización de datos
         if ($consulta->execute()) {
+            $db = Database::desconectar();
             return true;
         } else {
+            $db = Database::desconectar();
             return false;
         }
     }
@@ -100,8 +103,10 @@ class ActoresCrud
         $consulta->bindValue(':id', $id);
         // ejecutamos la consulta de borrado
         if ($consulta->execute()) {
+            $db = Database::desconectar();
             return true;
         } else {
+            $db = Database::desconectar();
             return false;
         }
     }

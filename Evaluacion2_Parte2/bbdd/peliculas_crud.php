@@ -25,7 +25,7 @@ class PeliculasCrud
             $peli = new Pelicula($dato['id'], $dato['titulo'], $dato['anyo'], $dato['duracion']);
             $listaPelis[] = $peli;
         }
-
+        $db = Database::desconectar();
         return $listaPelis;
     }
 
@@ -48,7 +48,7 @@ class PeliculasCrud
         } else {
             $peli = null;
         }
-
+        $db = Database::desconectar();
         return $peli;
     }
 
@@ -67,6 +67,7 @@ class PeliculasCrud
         $consulta->bindValue(':duracion', $peli->getDuracion());
         // ejecutamos la consulta de inserción
         $consulta->execute();
+        $db = Database::desconectar();
     }
 
     /**
@@ -84,8 +85,10 @@ class PeliculasCrud
         $consulta->bindValue(':id', $peli->getId());
         // ejecutamos la actualización de datos
         if ($consulta->execute()) {
+            $db = Database::desconectar();
             return true;
         } else {
+            $db = Database::desconectar();
             return false;
         }
     }
@@ -102,8 +105,10 @@ class PeliculasCrud
         $consulta->bindValue(':id', $id);
         // ejecutamos la consulta de borrado
         if ($consulta->execute()) {
+            $db = Database::desconectar();
             return true;
         } else {
+            $db = Database::desconectar();
             return false;
         }
     }
@@ -127,7 +132,7 @@ class PeliculasCrud
             $actor = new Actor($dato['id'], $dato['nombre'], $dato['anyoNacimiento'], $dato['pais']);
             $listaActores[] = $actor;
         }
-
+        $db = Database::desconectar();
         return $listaActores;
     }
 
@@ -150,7 +155,7 @@ class PeliculasCrud
             $director = new Director($dato['id'], $dato['nombre'], $dato['anyoNacimiento'], $dato['pais']);
             $listaDirectores[] = $director;
         }
-
+        $db = Database::desconectar();
         return $listaDirectores;
     }
 }

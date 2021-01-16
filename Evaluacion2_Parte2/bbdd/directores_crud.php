@@ -23,7 +23,7 @@ class DirectoresCrud
             $director = new Director($dato['id'], $dato['nombre'], $dato['anyoNacimiento'], $dato['pais']);
             $listaDirectores[] = $director;
         }
-
+        $db = Database::desconectar();
         return $listaDirectores;
     }
 
@@ -46,7 +46,7 @@ class DirectoresCrud
         } else {
             $director = null;
         }
-
+        $db = Database::desconectar();
         return $director;
     }
 
@@ -65,6 +65,7 @@ class DirectoresCrud
         $consulta->bindValue(':pais', $director->getPais());
         // ejecutamos la consulta de inserción
         $consulta->execute();
+        $db = Database::desconectar();
     }
 
     /**
@@ -82,8 +83,10 @@ class DirectoresCrud
         $consulta->bindValue(':id', $director->getId());
         // ejecutamos la actualización de datos
         if ($consulta->execute()) {
+            $db = Database::desconectar();
             return true;
         } else {
+            $db = Database::desconectar();
             return false;
         }
     }
@@ -100,8 +103,10 @@ class DirectoresCrud
         $consulta->bindValue(':id', $id);
         // ejecutamos la consulta de borrado
         if ($consulta->execute()) {
+            $db = Database::desconectar();
             return true;
         } else {
+            $db = Database::desconectar();
             return false;
         }
     }

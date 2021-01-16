@@ -1,6 +1,15 @@
 <?php
+// inicializamos los valores
+$user = '';
+$pass = '';
+$check = '';
 // comprobamos si existe la cookie
-$user = isset($_COOKIE['user']) ? $_COOKIE['user'] : "";
+if (isset($_COOKIE['user'])) {
+    $datos = unserialize($_COOKIE['user']);
+    $user = $datos[0];
+    $pass = $datos[1];
+    $check = $datos[2] ? 'checked' : '';
+}
 ?>
 <!DOCTYPE html>
     <head>
@@ -15,7 +24,7 @@ $user = isset($_COOKIE['user']) ? $_COOKIE['user'] : "";
     </head>
     <body>
         <div class="alert alert-secondary d-flex">
-            <a href="./peliculas.php" class="btn btn-dark">Listar películas</a>&nbsp;&nbsp;
+            <a href="./peliculas.php" class="btn btn-dark">Listar películas</a>
         </div>
         <div class="container">
             <div class="row">
@@ -35,10 +44,10 @@ $user = isset($_COOKIE['user']) ? $_COOKIE['user'] : "";
                         </div>
                         <div class='form-group'>
                             <label for='password'>Contraseña:</label>
-                            <input type='password' class='form-control' name='password' maxlength=50 required>
+                            <input type='password' class='form-control' name='password' value='$pass' maxlength=50 required>
                         </div>
                         <div class='form-check'>
-                            <input type='checkbox' class='form-check-input' name='guardaCredenciales'>
+                            <input type='checkbox' class='form-check-input' name='guardaCredenciales' $check>
                             <label class='form-check-label' for='guardaCredenciales'>Guarda mis credenciales</label>
                         </div>
                         <button type='submit' class='btn btn-primary'>Acceder</button>
@@ -53,7 +62,16 @@ $user = isset($_COOKIE['user']) ? $_COOKIE['user'] : "";
                         echo "<div class='text-success'>USUARIO CORRECTO</div>";
                         // creamos la cookie si el checkbox está marcado
                         if (isset($_GET['guardaCredenciales'])) {
-                            setcookie('user', $usuario->getEmail(), time() + (3600 + 24));
+                            $usuario->setGuardaCredenciales(1);
+                            $usuariosCrud->actualizar($usuario);
+                            $datos[0] = $usuario->getEmail();
+                            $datos[1] = $usuario->getPassword();
+                            $datos[2] = $usuario->getGuardaCredenciales();
+                            setcookie('user', serialize($datos), time() + (3600 + 24));
+                        } else {
+                            $usuario->setGuardaCredenciales(0);
+                            $usuariosCrud->actualizar($usuario);
+                            setcookie('user', '', time() - (3600 + 24));
                         }
                         // iniciamos la sesión y le asignamos el email del usuario
                         session_name("login");

@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-use CodeIgniter\Router\RouteCollection;
 use CodeIgniter\Services;
 use Config\Autoload;
 use Config\Modules;
@@ -91,6 +90,6 @@ $loader->register(); // Register the loader with the SPL autoloader stack.
 require_once APPPATH . 'Config/Routes.php';
 
 /**
- * @var RouteCollection $routes
+ * @var \CodeIgniter\Router\RouteCollection $routes
  */
 $routes->getRoutes('*');

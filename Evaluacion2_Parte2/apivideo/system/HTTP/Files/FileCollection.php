@@ -47,6 +47,8 @@ class FileCollection
 		return $this->files;
 	}
 
+	//--------------------------------------------------------------------
+
 	/**
 	 * Attempts to get a single file from the collection of uploaded files.
 	 *
@@ -179,6 +181,8 @@ class FileCollection
 			$this->files[$name] = $this->createFileObject($file);
 		}
 	}
+
+	//--------------------------------------------------------------------
 
 	/**
 	 * Given a file array, will create UploadedFile instances. Will

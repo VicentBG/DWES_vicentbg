@@ -2226,6 +2226,8 @@ class BaseBuilder
 		return $this->compileFinalQuery($sql);
 	}
 
+	//--------------------------------------------------------------------
+
 	/**
 	 * Insert
 	 *
@@ -2316,6 +2318,8 @@ class BaseBuilder
 	{
 		return 'INSERT ' . $this->compileIgnore('insert') . 'INTO ' . $table . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', $unescapedKeys) . ')';
 	}
+
+	//--------------------------------------------------------------------
 
 	/**
 	 * Replace

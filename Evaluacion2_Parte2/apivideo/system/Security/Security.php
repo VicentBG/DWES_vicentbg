@@ -11,6 +11,7 @@
 
 namespace CodeIgniter\Security;
 
+use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\Security\Exceptions\SecurityException;
 use Config\App;

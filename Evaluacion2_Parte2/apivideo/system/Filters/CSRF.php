@@ -13,7 +13,6 @@ namespace CodeIgniter\Filters;
 
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\Response;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Security\Exceptions\SecurityException;
 use Config\Services;
@@ -68,11 +67,12 @@ class CSRF implements FilterInterface
 	}
 
 	//--------------------------------------------------------------------
+
 	/**
 	 * We don't have anything to do here.
 	 *
 	 * @param RequestInterface|IncomingRequest             $request
-	 * @param ResponseInterface|Response $response
+	 * @param ResponseInterface|\CodeIgniter\HTTP\Response $response
 	 * @param array|null                                   $arguments
 	 *
 	 * @return mixed

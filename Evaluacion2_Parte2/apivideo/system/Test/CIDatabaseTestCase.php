@@ -14,7 +14,6 @@ namespace CodeIgniter\Test;
 use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\Database\MigrationRunner;
-use CodeIgniter\Database\Seeder;
 use CodeIgniter\Exceptions\ConfigException;
 use Config\Database;
 use Config\Migrations;
@@ -118,7 +117,7 @@ abstract class CIDatabaseTestCase extends CIUnitTestCase
 	/**
 	 * Seeder instance
 	 *
-	 * @var Seeder
+	 * @var \CodeIgniter\Database\Seeder
 	 */
 	protected $seeder;
 

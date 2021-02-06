@@ -67,7 +67,7 @@ class Seeder
 	/**
 	 * Faker Generator instance.
 	 *
-	 * @var Generator|null
+	 * @var \Faker\Generator|null
 	 */
 	private static $faker;
 

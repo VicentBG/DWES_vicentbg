@@ -2,6 +2,8 @@
 namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use App\Models\PeliculaModel;
+use App\Models\DirectorModel;
+use App\Models\ActorModel;
 
 class Restpeliculas extends ResourceController
 {
@@ -49,7 +51,11 @@ class Restpeliculas extends ResourceController
      */
     private function map($data)
     {
+        $directores = new DirectorModel();
+        $actores = new ActorModel();
         $peliculas = array();
+        $d_links = array();
+        $a_links = array();
         foreach ($data as $row) {
             $pelicula = array(
                 "id" => $row['id'],
@@ -64,6 +70,26 @@ class Restpeliculas extends ResourceController
                 )
                
             );
+            $d_links = $directores->getOnly($row['id']);
+            foreach ($d_links as $director) {
+                $director_links = array(
+                    array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']),"action" => "GET", "types" =>["text/xml","application/json"]),
+                    array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']), "action"=>"PUT", "types" => ["application/x-www-form-urlencoded"]),
+                    array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']), "action"=>"PATCH" ,"types" => ["application/x-www-form-urlencoded"]),
+                    array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']), "action"=>"DELETE", "types"=> [] )
+                );
+                $pelicula['links_director-'.$director['id']] = $director_links;
+            }
+            $a_links = $actores->getOnly($row['id']);
+            foreach ($a_links as $actor) {
+                $actor_links = array(
+                    array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']),"action" => "GET", "types" =>["text/xml","application/json"]),
+                    array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']), "action"=>"PUT", "types" => ["application/x-www-form-urlencoded"]),
+                    array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']), "action"=>"PATCH" ,"types" => ["application/x-www-form-urlencoded"]),
+                    array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']), "action"=>"DELETE", "types"=> [] )
+                );
+                $pelicula['links_actor-'.$actor['id']] = $actor_links;
+            }
             array_push($peliculas, $pelicula);
         }
         return $peliculas;

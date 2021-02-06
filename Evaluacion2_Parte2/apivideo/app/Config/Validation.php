@@ -46,4 +46,16 @@ class Validation
         'anyo' => 'required|less_than[2022]|greater_than[1894]',
         'duracion' => 'required|less_than[241]|greater_than[1]'
     ];
+
+    public $actores =[
+        'nombre' => 'required|min_length[1]|max_length[50]',
+        'anyoNacimiento' => 'required|less_than[2022]|greater_than[1800]',
+        'pais' => 'required|min_length[1]|max_length[50]'
+    ];
+
+    public $directores =[
+        'nombre' => 'required|min_length[1]|max_length[50]',
+        'anyoNacimiento' => 'required|less_than[2022]|greater_than[1800]',
+        'pais' => 'required|min_length[1]|max_length[50]'
+    ];
 }

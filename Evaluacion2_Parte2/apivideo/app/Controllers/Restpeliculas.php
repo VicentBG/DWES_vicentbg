@@ -65,7 +65,6 @@ class Restpeliculas extends ResourceController
                 "links" => array(
                     array("rel" => "self","href" => $this->url("/restpeliculas/".$row['id']),"action" => "GET", "types" =>["text/xml","application/json"]),
                     array("rel" => "self","href" => $this->url("/restpeliculas/".$row['id']), "action"=>"PUT", "types" => ["application/x-www-form-urlencoded"]),
-                    array("rel" => "self","href" => $this->url("/restpeliculas/".$row['id']), "action"=>"PATCH" ,"types" => ["application/x-www-form-urlencoded"]),
                     array("rel" => "self","href" => $this->url("/restpeliculas/".$row['id']), "action"=>"DELETE", "types"=> [] )
                 )
                
@@ -75,7 +74,6 @@ class Restpeliculas extends ResourceController
                 $director_links = array(
                     array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']),"action" => "GET", "types" =>["text/xml","application/json"]),
                     array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']), "action"=>"PUT", "types" => ["application/x-www-form-urlencoded"]),
-                    array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']), "action"=>"PATCH" ,"types" => ["application/x-www-form-urlencoded"]),
                     array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']), "action"=>"DELETE", "types"=> [] )
                 );
                 $pelicula['links_director-'.$director['id']] = $director_links;
@@ -85,7 +83,6 @@ class Restpeliculas extends ResourceController
                 $actor_links = array(
                     array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']),"action" => "GET", "types" =>["text/xml","application/json"]),
                     array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']), "action"=>"PUT", "types" => ["application/x-www-form-urlencoded"]),
-                    array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']), "action"=>"PATCH" ,"types" => ["application/x-www-form-urlencoded"]),
                     array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']), "action"=>"DELETE", "types"=> [] )
                 );
                 $pelicula['links_actor-'.$actor['id']] = $actor_links;
@@ -153,10 +150,10 @@ class Restpeliculas extends ResourceController
             $peliculas->update(
                 $id,
                 [
-                "id" => $row['id'],
-                "titulo" => $row['titulo'],
-                "anyo" => $row['anyo'],
-                "duracion" => $row['duracion']
+                "id" => $data['id'],
+                "titulo" => $data['titulo'],
+                "anyo" => $data['anyo'],
+                "duracion" => $data['duracion']
                 ]
             );
  

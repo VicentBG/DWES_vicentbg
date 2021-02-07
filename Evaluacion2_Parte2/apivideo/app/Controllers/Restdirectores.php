@@ -59,7 +59,6 @@ class Restdirectores extends ResourceController
                 "links" => array(
                     array("rel" => "self","href" => $this->url("/restdirectores/".$row['id']),"action" => "GET", "types" =>["text/xml","application/json"]),
                     array("rel" => "self","href" => $this->url("/restdirectores/".$row['id']), "action"=>"PUT", "types" => ["application/x-www-form-urlencoded"]),
-                    array("rel" => "self","href" => $this->url("/restdirectores/".$row['id']), "action"=>"PATCH" ,"types" => ["application/x-www-form-urlencoded"]),
                     array("rel" => "self","href" => $this->url("/restdirectores/".$row['id']), "action"=>"DELETE", "types"=> [] )
                 )
                
@@ -127,10 +126,10 @@ class Restdirectores extends ResourceController
             $directores->update(
                 $id,
                 [
-                "id" => $row['id'],
-                "nombre" => $row['nombre'],
-                "anyoNacimiento" => $row['anyoNacimiento'],
-                "pais" => $row['pais']
+                "id" => $data['id'],
+                "nombre" => $data['nombre'],
+                "anyoNacimiento" => $data['anyoNacimiento'],
+                "pais" => $data['pais']
                 ]
             );
  

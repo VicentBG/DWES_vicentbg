@@ -72,20 +72,32 @@ class Restpeliculas extends ResourceController
             $d_links = $directores->getOnly($row['id']);
             foreach ($d_links as $director) {
                 $director_links = array(
-                    array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']),"action" => "GET", "types" =>["text/xml","application/json"]),
-                    array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']), "action"=>"PUT", "types" => ["application/x-www-form-urlencoded"]),
-                    array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']), "action"=>"DELETE", "types"=> [] )
+                    "id" => $director['id'],
+                    "nombre" => $director['nombre'],
+                    "anyoNacimiento" => $director['anyoNacimiento'],
+                    "pais" => $director['pais'],
+                    "links" => array(
+                        array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']),"action" => "GET", "types" =>["text/xml","application/json"]),
+                        array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']), "action"=>"PUT", "types" => ["application/x-www-form-urlencoded"]),
+                        array("rel" => "director","href" => $this->url("/restdirectores/".$director['id']), "action"=>"DELETE", "types"=> [] )
+                    )
                 );
-                $pelicula['links_director-'.$director['id']] = $director_links;
+                $pelicula['directores'][] = $director_links;
             }
             $a_links = $actores->getOnly($row['id']);
             foreach ($a_links as $actor) {
                 $actor_links = array(
-                    array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']),"action" => "GET", "types" =>["text/xml","application/json"]),
-                    array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']), "action"=>"PUT", "types" => ["application/x-www-form-urlencoded"]),
-                    array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']), "action"=>"DELETE", "types"=> [] )
+                    "id" => $actor['id'],
+                    "nombre" => $actor['nombre'],
+                    "anyoNacimiento" => $actor['anyoNacimiento'],
+                    "pais" => $actor['pais'],
+                    "links" => array(
+                        array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']),"action" => "GET", "types" =>["text/xml","application/json"]),
+                        array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']), "action"=>"PUT", "types" => ["application/x-www-form-urlencoded"]),
+                        array("rel" => "actor","href" => $this->url("/restactores/".$actor['id']), "action"=>"DELETE", "types"=> [] )
+                    )
                 );
-                $pelicula['links_actor-'.$actor['id']] = $actor_links;
+                $pelicula['actores'][] = $actor_links;
             }
             array_push($peliculas, $pelicula);
         }

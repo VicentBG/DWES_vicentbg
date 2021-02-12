@@ -4,6 +4,8 @@ use CodeIgniter\RESTful\ResourceController;
 use App\Models\PeliculaModel;
 use App\Models\DirectorModel;
 use App\Models\ActorModel;
+use App\Models\PeliculaDirectorModel;
+use App\Models\PeliculaActorModel;
 
 class Restpeliculas extends ResourceController
 {
@@ -162,7 +164,6 @@ class Restpeliculas extends ResourceController
             $peliculas->update(
                 $id,
                 [
-                "id" => $data['id'],
                 "titulo" => $data['titulo'],
                 "anyo" => $data['anyo'],
                 "duracion" => $data['duracion']

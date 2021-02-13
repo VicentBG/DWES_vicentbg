@@ -6,6 +6,6 @@ class PeliculaDirectorModel extends Model
 {
     protected $table = 'peliculas_directores';
     protected $primaryKey = 'id_pelicula'.'id_director';
-    protected $allowedFields = [];
+    protected $allowedFields = ['id_pelicula', 'id_director'];
 
 }

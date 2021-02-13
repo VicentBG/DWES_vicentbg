@@ -45,7 +45,9 @@ class Validation
         'titulo' => 'required|min_length[1]|max_length[50]',
         'anyo' => 'required|less_than[2022]|greater_than[1894]',
         'duracion' => 'required|less_than[241]|greater_than[1]',
-        'id_director' => 'required|integer'
+        'id_director' => 'required|integer',
+        'id_actor.*' => 'required|integer',
+        'numActores' => 'required|integer'
     ];
 
     public $actores =[

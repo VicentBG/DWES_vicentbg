@@ -127,15 +127,45 @@ class Restpeliculas extends ResourceController
     public function create()
     {
         $peliculas = new PeliculaModel();
+        $directores = new DirectorModel();
+        $actores = new ActorModel();
+        $peliDirector = new PeliculaDirectorModel();
+        $peliActor = new PeliculaActorModel();
  
         if ($this->validate('peliculas')) {
+            $dir = $this->request->getPost('id_director');
+            for ($i=0;$i<$this->request->getPost('numActores');$i++) {
+                $act[$i] = $this->request->getPost('id_actor['.$i.']');
+            }
+            if (!$directores->get($dir)) {
+                return $this->genericResponse(null, 'El director '. $dir .' no existe en la BBDD!', 500);
+            }
+            foreach ($act as $a) {
+                if (!$actores->get($a)) {
+                    return $this->genericResponse(null, 'El actor '. $a .' no existe en la BBDD!', 500);
+                }
+            }
             $id = $peliculas->insert(
                 [
-                'titulo' => $this->request->getPost('titulo'),
-                'anyo' => $this->request->getPost('anyo'),
-                'duracion' => $this->request->getPost('duracion')
+                    'titulo' => $this->request->getPost('titulo'),
+                    'anyo' => $this->request->getPost('anyo'),
+                    'duracion' => $this->request->getPost('duracion')
                 ]
             );
+            $peliDirector->insert(
+                [
+                    'id_pelicula' => $id,
+                    'id_director' => $dir
+                ]
+            );
+            foreach ($act as $a) {
+                $peliActor->insert(
+                    [
+                        'id_pelicula' => $id,
+                        'id_actor' => $a
+                    ]
+                );
+            }
 
             return $this->genericResponse($this->model->find($id), null, 200);
         }
